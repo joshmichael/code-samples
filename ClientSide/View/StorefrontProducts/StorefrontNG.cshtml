@@ -1,0 +1,93 @@
+﻿@model Sabio.Web.Models.ViewModels.BaseViewModel
+
+@{
+    ViewBag.Title = "Store Front";
+    Layout = "~/Views/Shared/_QuoteMuleAuthenticatedLayout.cshtml";
+}
+
+<br />
+<div class="page-content-wrap" ng-controller="productController as main">
+
+    <div class="form-group">
+
+        <div class="page-subheading">
+            <br />
+            <button class="btn btn-primary btn-block new-product-button" id="show_AddItem" ng-click="main.openInsertModal()">Click here to add new products.</button>
+            <br />
+        </div>
+
+    </div>
+    <input type="hidden" id="PAGEUSER" value=@Model._AccountId />
+    <input type="hidden" id="PAGECOMPANY" value=@Model._CompanyId />
+
+    <div class="row col-md-4" ng-repeat="products in main.items" ng-cloak>
+
+        <br />
+        <div class="product-container">
+            <div class="panel panel-primary" ng-model="products.id" data-productid="{{ products.id }}">
+
+                <div class="panel-heading">
+
+                    <div class="panel-body panel-body-image">
+                        <img src="/Content/Theme/Images/constructionmaterials.jpg" alt="const-materials" />
+                        <strong class="panel-body-inform">
+                            <span class="fa fa-link"></span>
+                        </strong>
+                    </div>
+
+                    <h3 class="product-heading panel-title" ng-model="productselected.name"><strong>{{ products.name }}</strong></h3>
+                </div>
+
+                <div class="panel-body">
+                    <div class="product-beta category" ng-model="productselected.category">Category: <strong>{{ products.category }}</strong></div>
+                    <div class="product-meta cost" ng-model="productselected.cost">Price: <strong>{{ products.cost }}</strong></div>
+                    <div class="product-beta quantity" ng-model="productselected.quantity">Amount Available: <strong>{{ products.quantity }}</strong></div>
+                    <div class="product-beta min-purchase" ng-model="productselected.minPurchase">Minimum Purchase: <strong>{{ products.minPurchase }}</strong></div>
+                    <div class="product-beta product-threshold" ng-model="productselected.threshold">Threshold: <strong>{{ products.threshold }}</strong></div>
+
+                    <div class="product-body description">
+                        Description:
+                        <p class="product-description" ng-model="productselected.description">{{ products.description }}</p>
+                    </div>
+
+                </div>
+
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-success edit-product" ng-click="main.openEditModal(products)">Edit</button>
+                    <button type="button" class="btn pull-right btn-danger delete-product" ng-click="main.openDeleteModal(products)">Delete</button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    @section pageInItScripts {
+
+<script src="~/Scripts/bower_components/chosen/chosen.jquery.js"></script>
+<script src="~/Scripts/bower_components/angular-chosen-localytics/dist/angular-chosen.min.js"></script>
+<script src="~/Scripts/app/Modules/sabio.module.ngChosen.js"></script>
+        }
+
+    @section Scripts {@Scripts.Render("~/bundles/jqueryval")
+
+<!-- Load category master list -->
+<script src="~/Scripts/resources/mf.js"></script>
+
+<!-- Load AJAX services -->
+<script src="~/Scripts/sabio.services.products.js"></script>
+
+<!-- Load Bootstrap scripts for selectpicker -->
+<script src="~/Scripts/Theme/bootstrap-select.js"></script>
+<script src="~/Scripts/resources/mf.js"></script>
+<script src="~/Scripts/app/SuppliersStorefront/Services/productServiceFactory.js"></script>
+<script src="~/Scripts/app/SuppliersStorefront/Controllers/productController.js"></script>
+<script src="~/Scripts/app/SuppliersStorefront/Controllers/productInsertModalController.js"></script>
+<script src="~/Scripts/app/SuppliersStorefront/Controllers/productEditModalController.js"></script>
+<script src="~/Scripts/app/SuppliersStorefront/Controllers/productDeleteModalController.js"></script>
+
+<!-- All other scripts are loaded via the shared layout _QuoteMuleAuthenticatedLayout.cshtml -->
+
+    }
