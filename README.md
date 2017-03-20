@@ -1,2 +1,2 @@
 # code-samples
-Code samples
+QuoteMule code samples developed by jm
