@@ -113,8 +113,9 @@ namespace Sabio.Web.Controllers.Api
 
         //....// ===================================================================================
         [Route("companyid")HttpGet]
-        public HttpResponseMessage GetProductsByCompanyId(ProductGetRequest model) // - Model binding
+        public HttpResponseMessage GetProductsByCompanyId() 
         {
+            ProductGetRequest model = new ProductGetRequest();
 
             if (!ModelState.IsValid) // - Validate data received
             {
